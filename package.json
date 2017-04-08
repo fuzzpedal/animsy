@@ -1,0 +1,55 @@
+{
+  "name": "animsy",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build-js && npm run build-css",
+    "build-js": "browserify ./static/js/src/devtools.js -o ./static/js/dist/devtools.js -v -d -s animsy && browserify ./static/js/src/panel.js -o ./static/js/dist/panel.js -v -d -s animsy",
+    "build-css": "node-sass --include-path node_modules ./static/scss/index.scss ./static/css/directory.css",
+    "stylelint": "stylelint --format scss `find static -name *.scss -type f`",
+    "watch": "npm-run-all --parallel watch-js watch-sass",
+    "watch-js": "watchify -vd -p browserify ./static/js/src/index.js -o ./static/js/dist/directory.js -v -d -s directory --poll",
+    "watch-sass": "npm run build-css && node-sass --include-path node_modules ./static/scss/index.scss -w ./static/css/directory.css",
+    "dev": "npm-run-all --parallel watch-js watch-sass"
+  },
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babelify": "^7.3.0",
+    "bootstrap": "^4.0.0-alpha.2",
+    "browserify": "^13.0.1",
+    "font-awesome": "^4.6.1",
+    "node-sass": "^3.8.0",
+    "npm-run-all": "^4.0.1",
+    "select2": "^4.0.3",
+    "stylelint": "^6.5.1",
+    "superagent": "^3.5.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ],
+          "plugins": [
+            "transform-object-assign"
+          ]
+        }
+      ]
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-directory"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "npm-run-all": "^4.0.1",
+    "watchify": "^3.9.0"
+  }
+}
