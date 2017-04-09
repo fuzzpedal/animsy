@@ -1,22 +1,15 @@
-class TimelineItem {
-    constructor(id) {
-        this.id = id;
-    }
+import { Timeline } from './components/Timeline'
+import { TimelineElement } from './components/TimelineElement'
 
-    render() {
-        return ''
-    }
 
-    toString() {
-        return 'TimelineItem: ' + this.id;
-    }
+
+let timeline = new Timeline('http://localhost/');
+
+let ids = ['testymctestface',];
+
+for (let elemId of ids) {
+    let tlElem = new TimelineElement(elemId);
+    timeline.elements.push(tlElem);
 }
 
-let ids = ['test', 'thing'];
-for (let id of ids) {
-    let tlItem = new TimelineItem(id);
-    alert(tlItem);
-//    alert(id);
-}
-
-document.getElementById('timeline').innerHTML = '--------'
+document.getElementById('timeline').innerHTML = timeline.render();

@@ -1,3 +1,6 @@
+
+
+
 chrome.devtools.panels.create("Animsy",
     "icon.png",
     "Panel.html",
