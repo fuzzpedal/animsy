@@ -11,14 +11,14 @@ class TimelineElement {
         this.defaultProps = {
             infinite: false,
             reverse: false,
-            length: 1000,
+            animLength: 1000,
             elemOrigin: new Point(0, 0)
         }
         this.props = props ? props : {};
         this.elemId = elemId ? elemId : '';
         this.infinite = this._getProp('infinite');
         this.reverse = this._getProp('reverse');
-        this.length = this._getProp('length');
+        this.animLength = this._getProp('animLength');
         this.elemOrigin = this._getProp('elemOrigin');
 
         this.keyframes = [];
@@ -29,6 +29,20 @@ class TimelineElement {
         return '<div class="item" id="' + this.elemId + '">' +
             '<div class="label" title="' + this.elemId + '">' + this.elemId + '</div>' +
             '</div>';
+    }
+
+    getCode() {
+        let out = '@keyframes ' + this.elemId + ' {';
+        let totalLength = 1000;
+        let percentage = 100;
+        for (let kf of this.keyframes) {
+            out += percentage + '% { ' + kf.getCode() + '}';
+        }
+        out += '}'
+
+        out += '#' + this.elemId + '{ animation: ' + this.elemId + ' ' + 10000 + '; }';
+
+        return out;
     }
 
     toString() {

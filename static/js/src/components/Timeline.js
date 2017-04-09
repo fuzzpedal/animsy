@@ -2,6 +2,7 @@ class Timeline {
     constructor(url) {
         this.url = url ? url : '';
         this.elements = [];
+        this.length = 10000;  // milliseconds
     }
 
     render() {
